@@ -8,7 +8,7 @@ spec:
     image: nginx
     ports:
       - containerPort: 80
-  - name: Backend-api
+  - name: backend-api
     image: varukoluaravind22/devops-docker-images:my-lms-backend-1.1
     ports:
       - containerPort: 8080
