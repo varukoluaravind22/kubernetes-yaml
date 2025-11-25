@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: nginx
+          image: varukoluaravind22/devops-docker-images:web-application-1
           ports:
             - containerPort: 80
 
