@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mc-success-pod
+spec:
+  containers:
+  - name: nginx-container-1
+    image: nginx
+    ports:
+      - containerPort: 80
+  - name: backend-api
+    image: varukoluaravind22/devops-docker-images:my-lms-backend-1.1
+    ports:
+      - containerPort: 8080
+
+
