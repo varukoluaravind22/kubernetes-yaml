@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+   name: nginx-web-server
+   labels:
+     name: webserver
+     tier: frontend
+spec: 
+  replicas: 3
+  selector:
+     MatchLabels: 
+        tier: frontend
+  template:
+    metadata:
+      labels:
+        tier: frontend
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+      ports:
+      - containerPort: 80
+     
