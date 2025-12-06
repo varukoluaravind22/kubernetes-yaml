@@ -5,7 +5,7 @@ metadata:
 spec:
   type: {{.Values.service.type}}
   selector:
-    {{ toYaml .Values.service.labels | nindent 4 }}: {{.Values.service.app}}
+    {{ toYaml .Values.service.labels | nindent 4 }}
   ports:
     - port: {{.Values.service.port}}
       targetPort: {{.Values.service.targetPort}}
