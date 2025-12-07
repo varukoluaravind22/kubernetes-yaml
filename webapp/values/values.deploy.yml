@@ -1,0 +1,18 @@
+deployment:
+  enabled: true
+  name: nginx-helm-deploy
+  labels:
+    app: web-server
+  replicas: 2
+  image: nginx
+  containerPort: 80
+
+service:
+  name: nginx-svc
+  type: NodePort
+  labels:
+    app: web-server
+  port: 80
+  targetPort: 80
+  nodePort: 30001
+
