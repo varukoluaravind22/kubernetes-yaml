@@ -2,11 +2,11 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ns-deploy-food
+  nameSpace: prod
   labels:
     tier: food-app
 spec: 
   replicas: 1
-  nameSpace: prod
   selector:
     matchLabels:
       tier: food-app
@@ -20,4 +20,3 @@ spec:
       image: varukoluaravind22/devops-docker-images:food-1
       ports:
       - containerPort: 80
-      
