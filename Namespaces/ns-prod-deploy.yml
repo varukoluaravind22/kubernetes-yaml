@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ns-deploy-ecomm
+  namespace: prod
+  labels:
+    tier: ecomm-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      tier: ecomm-web
+  template:
+    metadata:
+      labels:
+        tier: ecomm-web
+    spec:
+      containers:
+      - name: ecomm-web-service
+        image: varukoluaravind22/devops-docker-images:ecommservice-1
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1 
+kind: Service
+metadata:
+  name: ecomm-web-service
+spec:
+  type: NodePort 
+  selector:
+    tier: ecomm-web
+  ports:
+  - port: 80
+    targetPort: 80
+    nodePort: 30003
