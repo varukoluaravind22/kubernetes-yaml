@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-server
+  labels:
+    name: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: frontend
+  template:
+    metadata:
+      labels:
+        name: frontend
+    spec:
+      containers:
+      - name: apache-web
+        image: httpd
+        ports:
+        - containerPort: 80
+      resources:
+        limits:
+          cpu: 500m
+        requests:
+          cpu: 200m
+---
+apiVersion: v1 
+kind: Service
+metadata:
+  name: apache-svc
+spec:
+  selector:
+    name: frontend
+  ports:
+  - port: 80
+    targetPort: 80
+  
