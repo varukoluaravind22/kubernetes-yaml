@@ -2,20 +2,38 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-application-deploy
+  name: {{ $app.name }}
 spec:
-  replicas: {{ .$app.replicas}}
+  replicas: {{ $app.replicas }}
   selector:
     matchLabels:
-      {{ toYaml .$app.labels | nindent 4}}
+{{ toYaml $app.labels | indent 6 }}
   template:
     metadata:
       labels:
-        {{ toYaml .$app.labels | nindent 6}}
+{{ toYaml $app.labels | indent 8 }}
     spec:
       containers:
-      - name: {{ .$app.name}}
-        image: {{ .$app.image}}
-        ports: 
-        - containerPort: {{.$app.containerPort}}
-{{ - end }}
+      - name: {{ $app.name }}
+        image: {{ $app.image }}
+        ports:
+        - containerPort: {{ $app.containerPort }}
+---
+{{- end }}
+
+{{- range $key, $app := .Values.applications }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $app.name }}
+spec:
+  type: {{ $app.type }}
+  selector:
+{{ toYaml $app.labels | indent 4 }}
+  ports:
+  - port: {{ $app.port }}
+    targetPort: {{ $app.containerPort }}
+    nodePort: {{ $app.nodePort }}
+---
+{{- end }}
+

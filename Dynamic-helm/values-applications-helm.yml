@@ -1,8 +1,8 @@
 applications:
-ecomm:
-  name: ecomm-web-service
-  replicas: 1
-  labels:
-    app: frontend1
-  image: varukoluaravind22/devops-docker-images:ecommservice-1
-  containerPort: 80
+  ecomm:
+    name: ecomm-web-service
+    replicas: 1
+    labels:
+      app: frontend1
+    image: varukoluaravind22/devops-docker-images:ecommservice-1
+    containerPort: 80
