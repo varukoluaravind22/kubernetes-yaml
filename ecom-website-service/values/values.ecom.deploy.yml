@@ -1,0 +1,17 @@
+deployment:
+  name: ecomm-helm-deploy
+  labels:
+    app: ecomm-web-server
+  replicas: 2
+  image: varukoluaravind22/devops-docker-images:ecommservice-1
+  containerPort: 80
+
+service:
+  name: ecomm-svc
+  type: NodePort
+  labels:
+    app: ecomm-web-server
+  port: 80
+  targetPort: 80
+  nodePort: 30002
+
