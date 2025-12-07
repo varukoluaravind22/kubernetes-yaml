@@ -1,0 +1,21 @@
+{{- range $key, $app := .Values.applications }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-application-deploy
+spec:
+  replicas: {{ .$app.replicas}}
+  selector:
+    matchLabels:
+      {{ toYaml .$app.labels | nindent 4}}
+  template:
+    metadata:
+      labels:
+        {{ toYaml .$app.labels | nindent 6}}
+    spec:
+      containers:
+      - name: {{ .$app.name}}
+        image: {{ .$app.image}}
+        ports: 
+        - containerPort: {{.$app.containerPort}}
+{{ - end }}
