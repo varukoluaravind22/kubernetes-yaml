@@ -1,0 +1,26 @@
+apiVersion:
+kind: Deployment
+metadata:
+  name: Postgres-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      labels:
+        tier: db
+  template:
+    metadata:
+      labels:
+        tier: db
+    spec:
+      containers:
+      - name: Postgres
+        image: Postgres
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            name: postgres-secret
+            key: password
+
