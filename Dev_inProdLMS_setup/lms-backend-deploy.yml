@@ -20,6 +20,8 @@ spec:
         envFrom:
         - configMapRef:
             name: backend-config-map
+        - secretRef:
+            name: backend-secret
         env:
         - name: POSTGRES_PASSWORD
           valueFrom:
