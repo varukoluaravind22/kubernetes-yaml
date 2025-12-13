@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: lms-backend-svc
 spec:
-  type: loadBalancer
+  type: LoadBalancer
   ports:
   - port: 3000
   selector:
