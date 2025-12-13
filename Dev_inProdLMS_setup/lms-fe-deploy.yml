@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lms-fe-deploy
+spec: 
+  replicas: 1
+  selector:
+    matchLabels:
+      tier: lms-frontend
+  template:
+    metadata:
+      labels:
+        tier: lms-frontend
+    spec:
+      containers:
+      - name: lms-frontend
+        image: varukoluaravind22/devops-docker-image:lms-frontend-withupdatedurl-of-lb-port-latest
+        ports:
+        - containerPort: 80
+        
