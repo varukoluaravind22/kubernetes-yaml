@@ -6,8 +6,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      labels:
-        tier: db
+      tier: db
   template:
     metadata:
       labels:
