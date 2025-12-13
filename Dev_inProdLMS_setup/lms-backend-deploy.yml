@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lms-backend-deploy
+spec: 
+  replicas: 1
+  selector: 
+    matchLabels:
+      tier: backend-lms
+  template:
+    metadata:
+      labels:
+        tier: backend-lms
+    spec:
+      containers:
+      - name: lms-backend
+        image: varukoluaravind22/devops-docker-image:lms-be-withoutenv-1
+        ports:
+        - containerPort: 3000
+        envFrom:
+        - ConfigMapRef:
+            name: backend-config-map
+        env:
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: password

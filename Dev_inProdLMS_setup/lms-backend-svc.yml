@@ -1,0 +1,10 @@
+apiVersion: v1 
+kind: Service
+metadata:
+  name: lms-backend-svc
+spec:
+  type: loadBalancer
+  ports:
+  - port: 3000
+  selector:
+    tier: lms-backend
