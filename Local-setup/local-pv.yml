@@ -4,10 +4,11 @@ metadata:
   name: nfs-pv
 spec:
   storageClassName: manual
-  capacity: 5Gi
-  PersistentVolumeReclaimPolicy: Retain
+  persistentVolumeReclaimPolicy: Retain
   accessmodes:
   - ReadWriteOnce
+  capacity:
+    storage: 5Gi
   nfs:
    server: 192.168.0.117
    path: /home/oracle/oliveissuerfin
