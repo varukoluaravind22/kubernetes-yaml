@@ -5,7 +5,7 @@ metadata:
 spec:
   storageClassName: manual
   persistentVolumeReclaimPolicy: Retain
-  accessmodes:
+  accessModes:
   - ReadWriteOnce
   capacity:
     storage: 5Gi
