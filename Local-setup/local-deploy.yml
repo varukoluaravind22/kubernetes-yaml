@@ -8,19 +8,19 @@ spec:
   replicas: 2
   strategy:
     canary:
-      maxAvailable: 100%
+      maxSurge: 100%
       maxUnavailable: 50%
-    steps:
-    - setWeight: 10
-    - pause: {}
-    - setWeight: 30
-    - pause: {}
-    - setWeight: 50
-    - pause: {}
-    - setWeight: 75
-    - pause:
-        duration: 180
-    - setWeight: 100
+      steps:
+      - setWeight: 10
+      - pause: {}
+      - setWeight: 30
+      - pause: {}
+      - setWeight: 50
+      - pause: {}
+      - setWeight: 75
+      - pause:
+          duration: 180
+      - setWeight: 100
   selector:
     matchLabels:
       tier: fin-backend
@@ -36,26 +36,29 @@ spec:
         ports:
         - containerPort: 8085
         volumeMounts:
-        - name: app-mounts
-        - moutPath: /upiapp/upinew/oliveissuerfin/application.properties
+        - mountPath: /upiapp/upinew/oliveissuerfin/application.properties
+          name: app-mounts
           subPath: application.properties 
         - mountPath: /upiapp/upinew/oliveissuerfin/deploy
+          name: app-mounts
           subPath: deploy 
         - mountPath: /upiapp/upinew/oliveissuerfin/cfg
+          name: app-mounts
           subPath: cfg 
         - mountPath: /upiapp/upinew/oliveissuerfin/logback.xml
+          name: app-mounts
           subPath: logback.xml 
         - mountPath: /upiapp/upinew/oliveissuerfin/log 
           name: log 
         - mountPath: /upiapp/upinew/oliveissuerfin/logs
           name: logs  
-        securityContext:
-          seccomProfile:
-            type: RuntimeDefault
-        volumes: 
-        - name: app-mounts
-          persistentVolumeClaim: 
-            claimName: local-pvc
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      volumes: 
+      - name: app-mounts
+        persistentVolumeClaim: 
+          claimName: local-pvc
 --- 
 apiVersion: v1 
 kind: Service
