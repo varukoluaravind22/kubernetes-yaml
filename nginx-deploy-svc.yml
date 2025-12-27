@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: nginx-deploy-svc
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     tier: frontend
   ports:
