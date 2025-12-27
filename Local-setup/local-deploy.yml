@@ -1,0 +1,71 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: fin-deploy
+  labels:
+    tier: fin-backend
+spec:
+  replicas: 2
+  strategy:
+    canary:
+      maxAvailable: 100%
+      maxUnavailable: 50%
+    steps:
+    - setWeight: 10
+    - pause: {}
+    - setWeight: 30
+    - pause: {}
+    - setWeight: 50
+    - pause: {}
+    - setWeight: 75
+    - pause:
+        duration: 180
+    - setWeight: 100
+  selector:
+    matchLabels:
+      tier: fin-backend
+  template:
+    metadata: 
+      labels:
+        tier: fin-backend
+    spec: 
+      containers:
+      - name: oliveissuerfin-service
+        imagePullPolicy: IfNotPresent
+        image: varukoluaravind22/devops-docker-images:oliveissuerfin-1.0.0.9
+        ports:
+        - containerPort: 8085
+        volumeMounts:
+        - name: app-mounts
+        - moutPath: /upiapp/upinew/oliveissuerfin/application.properties
+          subPath: application.properties 
+        - mountPath: /upiapp/upinew/oliveissuerfin/deploy
+          subPath: deploy 
+        - mountPath: /upiapp/upinew/oliveissuerfin/cfg
+          subPath: cfg 
+        - mountPath: /upiapp/upinew/oliveissuerfin/logback.xml
+          subPath: logback.xml 
+        - mountPath: /upiapp/upinew/oliveissuerfin/log 
+          name: log 
+        - mountPath: /upiapp/upinew/oliveissuerfin/logs
+          name: logs  
+        securityContext:
+          seccomProfile:
+            type: RuntimeDefault
+        volumes: 
+        - name: app-mounts
+          persistentVolumeClaim: 
+            claimName: local-pvc
+--- 
+apiVersion: v1 
+kind: Service
+metadata: 
+  name: fin-svc
+spec: 
+  type: LoadBalancer
+  selector: 
+    tier: fin-backend
+  ports:
+  - port: 8085
+
+    
