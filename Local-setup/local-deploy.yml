@@ -1,5 +1,5 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Rollout
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: fin-deploy
   labels:
@@ -7,58 +7,78 @@ metadata:
 spec:
   replicas: 2
   strategy:
-    canary:
-      maxSurge: 100%
-      maxUnavailable: 50%
-      steps:
-      - setWeight: 10
-      - pause: {}
-      - setWeight: 30
-      - pause: {}
-      - setWeight: 50
-      - pause: {}
-      - setWeight: 75
-      - pause:
-          duration: 180
-      - setWeight: 100
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 0
   selector:
     matchLabels:
       tier: fin-backend
   template:
-    metadata: 
+    metadata:
       labels:
         tier: fin-backend
-    spec: 
-      containers:
-      - name: oliveissuerfin-service
-        imagePullPolicy: IfNotPresent
-        image: varukoluaravind22/devops-docker-images:oliveissuerfin-1.0.0.9
-        ports:
-        - containerPort: 8085
-        volumeMounts:
-        - mountPath: /upiapp/upinew/oliveissuerfin/application.properties
-          name: app-mounts
-          subPath: application.properties 
-        - mountPath: /upiapp/upinew/oliveissuerfin/deploy
-          name: app-mounts
-          subPath: deploy 
-        - mountPath: /upiapp/upinew/oliveissuerfin/cfg
-          name: app-mounts
-          subPath: cfg 
-        - mountPath: /upiapp/upinew/oliveissuerfin/logback.xml
-          name: app-mounts
-          subPath: logback.xml 
-        - mountPath: /upiapp/upinew/oliveissuerfin/log 
-          name: log 
-        - mountPath: /upiapp/upinew/oliveissuerfin/logs
-          name: logs  
+    spec:
       securityContext:
         seccompProfile:
           type: RuntimeDefault
-      volumes: 
-      - name: app-mounts
-        persistentVolumeClaim: 
-          claimName: local-pvc
+
+      containers:
+      - name: oliveissuerfin-service
+        image: varukoluaravind22/devops-docker-images:oliveissuerfin-1.0.0.9
+        imagePullPolicy: IfNotPresent
+
+      - name: oliveissuerfin-java
+        image: varukoluaravind22/devops-docker-images:oliveissuerfin-1.0.0.9
+        imagePullPolicy: IfNotPresent
+        command:
+          - java
+        args:
+          - -Dlog.dir=/upiapp/upinew/oliveissuerfin/log/${POD_NAME}
+          - -Dtomcat.dir=/upiapp/upinew/oliveissuerfin/tomcat/logs/${POD_NAME}
+          - -jar
+          - upi-cbi-cbs-fin-1.0.0.UAT.jar
+        ports:
+          - containerPort: 8085
+        volumeMounts:
+          - name: app-mounts
+            mountPath: /upiapp/upinew/oliveissuerfin/application.properties
+            subPath: application.properties
+
+          - name: app-mounts
+            mountPath: /upiapp/upinew/oliveissuerfin/deploy
+            subPath: deploy
+
+          - name: app-mounts
+            mountPath: /upiapp/upinew/oliveissuerfin/cfg
+            subPath: cfg
+
+          - name: app-mounts
+            mountPath: /upiapp/upinew/oliveissuerfin/logback.xml
+            subPath: logback.xml
+
+          - name: log
+            mountPath: /upiapp/upinew/oliveissuerfin/log
+
+          - name: logs
+            mountPath: /upiapp/upinew/oliveissuerfin/logs
+
+          - name: tomcat
+            mountPath: /upiapp/upinew/oliveissuerfin/tomcat/logs
+
+      volumes:
+        - name: app-mounts
+          persistentVolumeClaim:
+            claimName: local-pvc
+
+        - name: log
+          emptyDir: {}
+
+        - name: logs
+          emptyDir: {}
+
+        - name: tomcat
+          emptyDir: {}
 --- 
 apiVersion: v1 
 kind: Service
