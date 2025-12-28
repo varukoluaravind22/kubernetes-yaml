@@ -27,10 +27,6 @@ spec:
       - name: oliveissuerfin-service
         image: varukoluaravind22/devops-docker-images:oliveissuerfin-1.0.0.9
         imagePullPolicy: IfNotPresent
-
-      - name: oliveissuerfin-java
-        image: varukoluaravind22/devops-docker-images:oliveissuerfin-1.0.0.9
-        imagePullPolicy: IfNotPresent
         command:
           - java
         args:
