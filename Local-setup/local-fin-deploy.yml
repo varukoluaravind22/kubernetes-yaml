@@ -81,7 +81,7 @@ kind: Service
 metadata: 
   name: fin-svc
 spec: 
-  type: ClusterIp
+  type: ClusterIP
   selector: 
     tier: fin-backend
   ports:
