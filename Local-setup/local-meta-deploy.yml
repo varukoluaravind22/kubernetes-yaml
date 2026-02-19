@@ -8,8 +8,9 @@ spec:
   replicas: 2
   strategy:
     type: RollingUpdate
-    maxSurge: 2
-    maxUnavailable: 0
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 0
   selector:
     matchLabels:
        tier: meta-backend
@@ -52,7 +53,7 @@ spec:
         - name: logs
           mountPath: /upiapp/upinew/oliveissuermeta/logs
         - name: tomcat 
-          mountPath: /upiapp/upinew/oliveissuermeta/tomcat
+          mountPath: /upiapp/upinew/oliveissuermeta/tomcat/logs
       volumes:
         - name: upi-data
           persistentVolumeClaim:
@@ -62,7 +63,7 @@ spec:
         - name: logs
           emptydir: {}
         - name: tomcat
-          emptydir: tomcat
+          emptydir: {}
 ---
 apiVersion: v1
 kind: Service
