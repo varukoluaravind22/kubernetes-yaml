@@ -36,24 +36,24 @@ spec:
         - containerPort: 8083
         volumeMounts:
         - mountPath: /upiapp/upinew/oliveissuermeta/application.properties
+        - subPath: application.properties
           name: upi-data
-          subPath: application.properties
         - mountPath: /upiapp/upinew/oliveissuermeta/logback.xml
+        - subPath: logback.xml
           name: upi-data
-          subPath: logback.xml
         - mountPath: /upiapp/upinew/oliveissuermeta/cfg
+        - subpath: cfg
           name: upi-data
-          subpath: cfg
         - mountPath: /upiapp/upinew/oliveissuermeta/deploy
+        - subPath: deploy
           name: upi-data
-          subPath: deploy
         - mountPath: /upiapp/upinew/oliveissuermeta/log
           name: log
         - mountPath: /upiapp/upinew/oliveissuermeta/logs
           name: logs
         - mountPath: /upiapp/upinew/oliveissuermeta/tomcat
           name: tomcat
-        volumes:
+      volumes:
         - name: upi-data
           persistentVolumeClaim:
             claimName: meta_pvc
@@ -69,7 +69,7 @@ kind: Service
 metadata:
   name: meta-svc
 spec:
-  type: ClusterIp
+  type: ClusterIP
   selector:
     tier: meta-backend
   ports:
