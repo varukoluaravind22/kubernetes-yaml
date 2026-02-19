@@ -63,4 +63,15 @@ spec:
           emptydir: {}
         - name: tomcat
           emptydir: tomcat
-
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: meta-svc
+spec:
+  type: ClusterIp
+  selector:
+    tier: meta-backend
+  ports:
+  - port: 8083
+    
