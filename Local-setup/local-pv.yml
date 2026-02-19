@@ -6,9 +6,9 @@ spec:
   storageClassName: manual
   persistentVolumeReclaimPolicy: Retain
   accessModes:
-  - ReadWriteOnce
+  - ReadWriteMany
   capacity:
-    storage: 5Gi
+    storage: 15Gi
   nfs:
    server: 192.168.0.117
-   path: /home/oracle/oliveissuerfin
+   path: /home/oracle/app_data

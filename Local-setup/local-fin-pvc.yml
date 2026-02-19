@@ -6,7 +6,7 @@ spec:
   storageClassName: manual
   volumeName: nfs-pv
   accessModes:
-  - ReadWriteOnce
+  - ReadWriteMany
   resources:
     requests:
       storage: 3Gi

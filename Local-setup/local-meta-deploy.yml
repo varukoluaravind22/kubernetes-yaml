@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: meta-deploy
+  labels:
+    tier: meta-backend
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    maxSurge: 2
+    maxUnavailable: 0
+  selector:
+    matchLabels:
+       tier: meta-backend
+  template:
+    metadata:
+      labels:
+        tier: meta-backend
+    spec:
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+      - name: oliveissuermeta
+        image: varukoluaravind22/podman-images:oliveissuermeta-image-1
+        imagePullPolicy: IfNotPresent
+        command:
+        - java
+        args:
+        - -Dlog.dir=/upiapp/upinew/oliveissuermeta/log/${POD_NAME}
+        - -Dtomcat.dir=upiapp/upinew/oliveissuermeta/tomcat/logs/${POD_NAME}
+        - -jar
+        - cbi-upi-iss-meta-1.0.0.SNAPSHOT.jar
+        ports:
+        - containerPort: 8083
+        volumeMounts:
+        - mountPath: /upiapp/upinew/oliveissuermeta/application.properties
+          name: upi-data
+          subPath: application.properties
+        - mountPath: /upiapp/upinew/oliveissuermeta/logback.xml
+          name: upi-data
+          subPath: logback.xml
+        - mountPath: /upiapp/upinew/oliveissuermeta/cfg
+          name: upi-data
+          subpath: cfg
+        - mountPath: /upiapp/upinew/oliveissuermeta/deploy
+          name: upi-data
+          subPath: deploy
+        - mountPath: /upiapp/upinew/oliveissuermeta/log
+          name: log
+        - mountPath: /upiapp/upinew/oliveissuermeta/logs
+          name: logs
+        - mountPath: /upiapp/upinew/oliveissuermeta/tomcat
+          name: tomcat
+        volumes:
+        - name: upi-data
+          persistentVolumeClaim:
+            claimName: meta_pvc
+        - name: log
+          emptydir: {}
+        - name: logs
+          emptydir: {}
+        - name: tomcat
+          emptydir: tomcat
+
