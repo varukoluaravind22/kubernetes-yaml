@@ -35,24 +35,24 @@ spec:
         ports:
         - containerPort: 8083
         volumeMounts:
-        - mountPath: /upiapp/upinew/oliveissuermeta/application.properties
-        - subPath: application.properties
-          name: upi-data
-        - mountPath: /upiapp/upinew/oliveissuermeta/logback.xml
-        - subPath: logback.xml
-          name: upi-data
-        - mountPath: /upiapp/upinew/oliveissuermeta/cfg
-        - subpath: cfg
-          name: upi-data
-        - mountPath: /upiapp/upinew/oliveissuermeta/deploy
-        - subPath: deploy
-          name: upi-data
-        - mountPath: /upiapp/upinew/oliveissuermeta/log
-          name: log
-        - mountPath: /upiapp/upinew/oliveissuermeta/logs
-          name: logs
-        - mountPath: /upiapp/upinew/oliveissuermeta/tomcat
-          name: tomcat
+        - name: upi-data
+          mountPath: /upiapp/upinew/oliveissuermeta/application.properties
+          subPath: application.properties
+        - name: upi-data
+          mountPath: /upiapp/upinew/oliveissuermeta/logback.xml
+          subPath: logback.xml
+        - name: upi-data
+          mountPath: /upiapp/upinew/oliveissuermeta/cfg
+          subpath: cfg
+        - name: upi-data
+          mountPath: /upiapp/upinew/oliveissuermeta/deploy
+          subPath: deploy
+        - name: log
+          mountPath: /upiapp/upinew/oliveissuermeta/log
+        - name: logs
+          mountPath: /upiapp/upinew/oliveissuermeta/logs
+        - name: tomcat 
+          mountPath: /upiapp/upinew/oliveissuermeta/tomcat
       volumes:
         - name: upi-data
           persistentVolumeClaim:
