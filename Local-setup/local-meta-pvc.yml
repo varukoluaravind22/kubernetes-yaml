@@ -7,6 +7,6 @@ spec:
   volumeName: nfs-meta-pv
   accessModes:
   - ReadWriteOnce
-  resourses:
+  resources:
     requests:
       storage: 4Gi
