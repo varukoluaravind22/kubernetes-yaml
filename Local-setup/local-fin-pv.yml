@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: nfs-pv
+  name: nfs-fin-pv
 spec:
   storageClassName: manual
   persistentVolumeReclaimPolicy: Retain
   accessModes:
-  - ReadWriteMany
+  - ReadWriteOnce
   capacity:
-    storage: 15Gi
+    storage: 4Gi
   nfs:
    server: 192.168.0.117
    path: /home/oracle/oliveissuerfin-data

@@ -65,7 +65,7 @@ spec:
       volumes:
         - name: app-mounts
           persistentVolumeClaim:
-            claimName: local-pvc
+            claimName: fin-pvc
 
         - name: log
           emptyDir: {}
