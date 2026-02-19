@@ -44,7 +44,7 @@ spec:
           subPath: logback.xml
         - name: upi-data
           mountPath: /upiapp/upinew/oliveissuermeta/cfg
-          subpath: cfg
+          subPath: cfg
         - name: upi-data
           mountPath: /upiapp/upinew/oliveissuermeta/deploy
           subPath: deploy
