@@ -57,7 +57,7 @@ spec:
       volumes:
         - name: upi-data
           persistentVolumeClaim:
-            claimName: meta_pvc
+            claimName: meta-pvc
         - name: log
           emptyDir: {}
         - name: logs
