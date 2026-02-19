@@ -4,9 +4,9 @@ metadata:
   name: meta_pvc
 spec:
   storageClassName: manual
-  volumename: nfs-meta-pv
+  volumeName: nfs-meta-pv
   accessModes:
   - ReadWriteOnce
-  resourse:
+  resourses:
     requests:
       storage: 4Gi
