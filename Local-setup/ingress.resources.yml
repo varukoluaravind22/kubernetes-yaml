@@ -5,18 +5,18 @@ metadata:
 spec:
   rules:
     http:
-    - path: /upi/ReqPay
-      pathType: Prefix
-      backend:
-        service:
-          name: fin-svc
-          port:
-            number: 8085
-    - path: /upi/ReqListAccount
-      pathType: Prefix
-      backend:
-        service:
-          name: meta-svc
-          port:
-            number: 8083
-            
+      paths:
+      - path: /upi/ReqPay
+        pathType: Prefix
+        backend:
+          service:
+            name: fin-svc
+            port:
+              number: 8085
+      - path: /upi/ReqListAccount
+        pathType: Prefix
+        backend:
+          service:
+            name: meta-svc
+            port:
+              number: 8083
