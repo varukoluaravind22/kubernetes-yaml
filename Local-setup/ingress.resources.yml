@@ -6,14 +6,14 @@ spec:
   rules:
   - http:
       paths:
-      - path: /upi/ReqPay
+      - path: /upi/ReqPay(/|$)(.*)
         pathType: Prefix
         backend:
           service:
             name: fin-svc
             port:
               number: 8085
-      - path: /upi/ReqListAccount
+      - path: /upi/ReqListAccount(/|$)(.*)
         pathType: Prefix
         backend:
           service:
