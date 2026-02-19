@@ -1,0 +1,12 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-resources
+spec:
+  rules:
+    http:
+    - path: /upi/reqpay
+      pathType: prefix
+      backend:
+        service:
+          name: fin
