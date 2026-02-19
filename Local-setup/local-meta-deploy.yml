@@ -59,11 +59,11 @@ spec:
           persistentVolumeClaim:
             claimName: meta_pvc
         - name: log
-          emptydir: {}
+          emptyDir: {}
         - name: logs
-          emptydir: {}
+          emptyDir: {}
         - name: tomcat
-          emptydir: {}
+          emptyDir: {}
 ---
 apiVersion: v1
 kind: Service
