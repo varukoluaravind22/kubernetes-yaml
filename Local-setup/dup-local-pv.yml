@@ -10,5 +10,5 @@ spec:
     storage: 5Gi
   persistentVolumeReclaimPolicy: Delete
   nfs:
-    server: 172.21.69.225
-    path: /home/ubuntu/oliveissuerfin
+    server: 192.168.0.117
+    path: /home/oracle/oliveissuerfin-data
