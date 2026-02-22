@@ -22,3 +22,18 @@ spec:
             name: meta-svc
             port:
               number: 8083
+      - path: /promtheus
+        pathType: ImpplementationSpecific
+        backend:
+          service:
+            name: my-kube-prometheus-stack-operator
+            port:
+              number: 443
+      - path: /alertmanager
+        pathType: ImpplementationSpecific
+        backend:
+          service:
+            name: my-kube-prometheus-stack-alertmanager
+            port:
+              number: 9093     
+      
