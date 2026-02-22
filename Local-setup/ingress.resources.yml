@@ -9,28 +9,28 @@ spec:
   - http:
       paths:
       - path: /upi/ReqPay(/|$)(.*)
-        pathType: ImplementationSpecific
+        pathType: Prefix
         backend:
           service:
             name: fin-svc
             port:
               number: 8085
       - path: /upi/ReqListAccount(/|$)(.*)
-        pathType: ImplementationSpecific
+        pathType: Prefix
         backend:
           service:
             name: meta-svc
             port:
               number: 8083
       - path: /promtheus
-        pathType: ImpplementationSpecific
+        pathType: Prefix
         backend:
           service:
             name: my-kube-prometheus-stack-operator
             port:
               number: 443
       - path: /alertmanager
-        pathType: ImpplementationSpecific
+        pathType: Prefix
         backend:
           service:
             name: my-kube-prometheus-stack-alertmanager
