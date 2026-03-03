@@ -10,5 +10,5 @@ spec:
   capacity:
     storage: 4Gi
   nfs:
-   server: 192.168.0.117
-   path: /home/oracle/oliveissuerfin-data
+   server: 172.31.42.254
+   path: /home/ubuntu/upi_data
