@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: mytest-container    
-        image: varukoluaravind22/ci-cd:mytestapp-24
+        image: varukoluaravind22/ci-cd:mytestapp-26
         ports:
         - containerPort:  8080
         livenessProbe:
