@@ -14,17 +14,17 @@ spec:
     spec:
       containers:
       - name: mytest-container    
-        image: varukoluaravind22/ci-cd:mytestapp-18
+        image: varukoluaravind22/ci-cd:mytestapp-21
         ports:
-        - containerPort:  8083
+        - containerPort:  8080
         livenessProbe:
           tcpSocket:
-            port: 8083
+            port: 8080
           initialDelaySeconds: 30
           periodSeconds: 10
         readinessProbe:
           tcpSocket:
-            port: 8083
+            port: 8080
           initialDelaySeconds: 30
           periodSeconds: 5      
       
