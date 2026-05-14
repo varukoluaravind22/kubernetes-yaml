@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: mytest-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      tier: test
+  template:
+    metadata:
+      labels:
+        tier: test
+    spec:
+      containers:
+      - name: mytest-container    
+        image: varukoluaravind22/ci-cd:mytestapp-18
+        ports:
+        - containerPort:  8083
+      livelinessProbe:
+        tcpSocket:
+          port: 8083
+        initialDelaySeconds: 30
+        periodSeconds: 10
+      readinessProbe:
+        tcpSocket:
+          port: 8083
+        initialDelaySeconds: 30
+        periodSeconds: 5      
+      
