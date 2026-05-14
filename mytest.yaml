@@ -17,7 +17,7 @@ spec:
         image: varukoluaravind22/ci-cd:mytestapp-18
         ports:
         - containerPort:  8083
-      livelinessProbe:
+      livenessProbe:
         tcpSocket:
           port: 8083
         initialDelaySeconds: 30
